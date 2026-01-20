@@ -217,34 +217,52 @@ export class Game {
     }
     
     nextLevel() {
-        console.log('Переход на следующий уровень');
-        if (this.currentLevel < this.levels.length - 1) {
-            this.currentLevel++;
-            this.loadLevel(this.currentLevel);
-            this.levelComplete = false;
-            this.isPaused = false;
-            
-            if (this.ui.btnNextLevel) {
-                this.ui.btnNextLevel.disabled = true;
-            }
-            if (this.ui.btnPause) {
-                this.ui.btnPause.innerHTML = '<i class="fas fa-pause"></i> Пауза';
-            }
-            
-            // Автоматически продолжаем игру
-            if (!this.isRunning) {
-                this.start();
-            }
-            
-            console.log(`Перешли на уровень ${this.currentLevel + 1}`);
-        } else {
-            console.log('Это последний уровень!');
-            if (this.ui.messageEl) {
-                this.ui.messageEl.textContent = '🎉 Вы прошли все уровни! Поздравляем! 🎉';
-            }
-            this.levelComplete = true;
+    console.log('=== ПЕРЕХОД НА СЛЕДУЮЩИЙ УРОВЕНЬ ===');
+    
+    if (this.currentLevel < this.levels.length - 1) {
+        // Переходим на следующий уровень
+        this.currentLevel++;
+        console.log(`Загружаем уровень ${this.currentLevel + 1} из ${this.levels.length}`);
+        
+        // 1. Загружаем новый уровень
+        this.loadLevel(this.currentLevel);
+        
+        // 2. Сбрасываем все флаги
+        this.levelComplete = false;
+        this.isPaused = false;
+        
+        // 3. Останавливаем старую игру
+        this.isRunning = false;
+        
+        // 4. Обновляем UI
+        if (this.ui.btnNextLevel) {
+            this.ui.btnNextLevel.disabled = true;
         }
+        if (this.ui.btnPause) {
+            this.ui.btnPause.innerHTML = '<i class="fas fa-pause"></i> Пауза';
+            this.ui.btnPause.disabled = false;
+        }
+        if (this.ui.messageEl) {
+            this.ui.messageEl.textContent = `Уровень ${this.currentLevel + 1}! Соберите все звезды!`;
+        }
+        
+        // 5. Ждем немного и запускаем новую игру
+        setTimeout(() => {
+            console.log('Запускаем новый уровень');
+            this.start();
+        }, 100); // 100ms задержка
+        
+        console.log(`✅ Успешно перешли на уровень ${this.currentLevel + 1}`);
+        
+    } else {
+        console.log('🎉 Это последний уровень! Игра пройдена!');
+        if (this.ui.messageEl) {
+            this.ui.messageEl.textContent = '🎉 Вы прошли все уровни! Поздравляем! 🎉';
+        }
+        this.levelComplete = true;
+        this.isRunning = false;
     }
+}
     
     completeLevel() {
         console.log(`Уровень ${this.currentLevel + 1} пройден!`);
