@@ -45,7 +45,7 @@ ui.btnStart.addEventListener('click', () => {
     ui.btnStart.disabled = true;
     ui.btnPause.disabled = false;
     ui.btnRestart.disabled = false;
-    ui.messageEl.textContent = 'Игра началась!';
+    ui.messageEl.textContent = 'Игра началась! Собирайте звезды!';
 });
 
 ui.btnPause.addEventListener('click', () => {
@@ -56,10 +56,16 @@ ui.btnPause.addEventListener('click', () => {
 ui.btnRestart.addEventListener('click', () => {
     console.log('Рестарт');
     game.restart();
+    ui.btnStart.disabled = true;
+    ui.btnPause.disabled = false;
+    ui.btnRestart.disabled = false;
+    ui.btnNextLevel.disabled = true;
+    ui.messageEl.textContent = 'Игра перезапущена!';
 });
 
+// ВАЖНО: Обработчик для кнопки "Следующий"
 ui.btnNextLevel.addEventListener('click', () => {
-    console.log('Следующий уровень');
+    console.log('Нажата кнопка Следующий уровень');
     game.nextLevel();
 });
 
@@ -71,3 +77,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 console.log('Игра готова! Нажмите Старт.');
+
+// Для отладки
+window.game = game;
