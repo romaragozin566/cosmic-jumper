@@ -96,3 +96,29 @@ console.log('Игра готова! Нажмите Старт.');
 
 // Для отладки
 window.game = game;
+
+// Для тестирования - автоматически пройдем первый уровень
+setTimeout(() => {
+    console.log('=== ТЕСТ: Автоматический переход на уровень 2 ===');
+    
+    // Симулируем завершение первого уровня
+    game.currentLevel = 0; // Сначала первый уровень
+    game.loadLevel(0);
+    game.start();
+    
+    // Через 3 секунды "завершаем" уровень
+    setTimeout(() => {
+        console.log('Завершаем уровень 1...');
+        game.levelComplete = true;
+        game.isPaused = true;
+        ui.btnNextLevel.disabled = false;
+        ui.messageEl.textContent = 'Уровень 1 пройден! Нажмите "Следующий"';
+        
+        // Через 2 секунды нажимаем "Следующий"
+        setTimeout(() => {
+            console.log('Автоматически нажимаем "Следующий"...');
+            ui.btnNextLevel.click();
+        }, 2000);
+        
+    }, 3000);
+}, 2000);
