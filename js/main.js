@@ -65,8 +65,24 @@ ui.btnRestart.addEventListener('click', () => {
 
 // ВАЖНО: Обработчик для кнопки "Следующий"
 ui.btnNextLevel.addEventListener('click', () => {
-    console.log('Нажата кнопка Следующий уровень');
+    console.log('🎮 ========== НАЖАТА КНОПКА "СЛЕДУЮЩИЙ" ==========');
+    console.log('Текущее состояние игры:');
+    console.log('- Текущий уровень:', game.currentLevel + 1);
+    console.log('- Всего уровней:', game.levels.length);
+    console.log('- Игра запущена?:', game.isRunning);
+    console.log('- Игра на паузе?:', game.isPaused);
+    console.log('- Уровень завершен?:', game.levelComplete);
+    
+    // Вызываем переход
     game.nextLevel();
+    
+    // Проверяем через секунду
+    setTimeout(() => {
+        console.log('Проверка через 1 секунду:');
+        console.log('- Новый уровень:', game.currentLevel + 1);
+        console.log('- Игра запущена?:', game.isRunning);
+        console.log('- Холст виден?:', canvas.width > 0 && canvas.height > 0);
+    }, 1000);
 });
 
 // Клавиша P для паузы
