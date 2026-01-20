@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cosmic Platformer</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header class="game-header">
+      <div class="header-content">
+        <div class="title-section">
+          <h1><i class="fas fa-rocket"></i> Cosmic Jumper</h1>
+          <p class="subtitle">Исследуй космические платформы</p>
+        </div>
+        
+        <div class="controls-info">
+          <div class="control-item">
+            <span class="key">A/D</span>
+            <span>Движение</span>
+          </div>
+          <div class="control-item">
+            <span class="key">SPACE</span>
+            <span>Прыжок</span>
+          </div>
+          <div class="control-item">
+            <span class="key">P</span>
+            <span>Пауза</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="game-container">
+      <div class="stats-panel">
+        <div class="stat-box">
+          <div class="stat-label">Уровень</div>
+          <div class="stat-value" id="level">1</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Звезды</div>
+          <div class="stat-value" id="score">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Рекорд</div>
+          <div class="stat-value" id="best">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Время</div>
+          <div class="stat-value" id="timer">00:00</div>
+        </div>
+      </div>
+
+      <div class="canvas-wrapper">
+        <canvas id="gameCanvas" width="1000" height="500"></canvas>
+        <div class="level-info" id="levelInfo">Уровень 1: Стартовая зона</div>
+      </div>
+
+      <div class="controls-panel">
+        <button id="btnStart" class="btn btn-primary">
+          <i class="fas fa-play"></i> Старт
+        </button>
+        <button id="btnPause" class="btn btn-secondary" disabled>
+          <i class="fas fa-pause"></i> Пауза
+        </button>
+        <button id="btnRestart" class="btn btn-secondary" disabled>
+          <i class="fas fa-redo"></i> Рестарт
+        </button>
+        <button id="btnNextLevel" class="btn btn-success" disabled>
+          <i class="fas fa-forward"></i> Следующий
+        </button>
+      </div>
+
+      <div class="message-box" id="message">
+        Добро пожаловать в Cosmic Jumper! Собери все звезды и достигни портала.
+      </div>
+    </main>
+
+    <footer class="game-footer">
+      <div class="footer-content">
+        <div class="ai-info">
+          <i class="fas fa-robot"></i>
+          <span>Создано с помощью DeepSeek • Время разработки: 30 минут</span>
+        </div>
+        <div class="hint">
+          <i class="fas fa-lightbulb"></i>
+          <span>Подсказка: Не торопитесь, планируйте прыжки</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
