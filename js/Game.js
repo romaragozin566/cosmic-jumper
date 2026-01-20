@@ -138,32 +138,49 @@ export class Game {
         ];
     }
     
-    loadLevel(levelIndex) {
-        console.log(`Загружаем уровень ${levelIndex + 1}`);
-        const level = this.levels[levelIndex];
-        
-        this.platforms = level.platforms;
-        this.stars = level.stars.map(pos => new Star(pos.x, pos.y));
-        this.portal = new Portal(level.portal.x, level.portal.y, 
-                               level.portal.width, level.portal.height);
-        this.player.reset(level.spawn.x, level.spawn.y);
-        
-        this.levelComplete = false;
-        
-        // Обновляем UI
-        if (this.ui.levelEl) this.ui.levelEl.textContent = levelIndex + 1;
-        if (this.ui.levelInfoEl) {
-            this.ui.levelInfoEl.textContent = `Уровень ${levelIndex + 1}: ${level.name}`;
-        }
-        if (this.ui.messageEl) {
-            this.ui.messageEl.textContent = `Соберите ${this.stars.length} звезд для активации портала!`;
-        }
-        if (this.ui.btnNextLevel) {
-            this.ui.btnNextLevel.disabled = true;
-        }
-        
-        console.log(`Уровень ${levelIndex + 1} загружен: ${level.name}`);
+   loadLevel(levelIndex) {
+    console.log(`=== ЗАГРУЗКА УРОВНЯ ${levelIndex + 1} ===`);
+    
+    const level = this.levels[levelIndex];
+    if (!level) {
+        console.error(`❌ Уровень ${levelIndex} не найден!`);
+        return;
     }
+    
+    console.log(`Название уровня: ${level.name}`);
+    console.log(`Звезд: ${level.stars.length}`);
+    console.log(`Платформ: ${level.platforms.length}`);
+    
+    // Загружаем данные уровня
+    this.platforms = level.platforms;
+    this.stars = level.stars.map(pos => new Star(pos.x, pos.y));
+    this.portal = new Portal(level.portal.x, level.portal.y, 
+                           level.portal.width, level.portal.height);
+    
+    // Сбрасываем игрока
+    this.player.reset(level.spawn.x, level.spawn.y);
+    
+    // Сбрасываем флаги
+    this.levelComplete = false;
+    
+    // Обновляем UI
+    if (this.ui.levelEl) {
+        this.ui.levelEl.textContent = levelIndex + 1;
+        console.log(`UI: levelEl обновлен на ${levelIndex + 1}`);
+    }
+    
+    if (this.ui.levelInfoEl) {
+        this.ui.levelInfoEl.textContent = `Уровень ${levelIndex + 1}: ${level.name}`;
+        console.log(`UI: levelInfoEl обновлен`);
+    }
+    
+    if (this.ui.messageEl) {
+        this.ui.messageEl.textContent = `Соберите ${this.stars.length} звезд!`;
+        console.log(`UI: messageEl обновлен`);
+    }
+    
+    console.log(`✅ Уровень ${levelIndex + 1} загружен успешно`);
+}
     
     start() {
         console.log('Game.start() вызван');
